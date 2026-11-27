@@ -76,7 +76,7 @@ export default function AgentSidebar({ activeAgent }: Props) {
           return (
             <li key={a.id} className={`agent-item${isActive ? " agent-item-active" : ""}`}>
               <span className="agent-status-icon">
-                {isActive ? a.icon : "○"}
+                {a.icon}
               </span>
               <span className="agent-label">{a.label}</span>
             </li>
