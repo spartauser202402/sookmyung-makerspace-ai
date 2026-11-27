@@ -27,7 +27,7 @@ export default function App() {
         <div className="brand">
           <span className="logo" aria-hidden>▲</span>
           <div>
-            <strong>숙명 메이커스페이스</strong>
+            <strong>숙명창작소</strong>
             <span>AI 에이전트 · 3DWOX1 / PLA</span>
           </div>
         </div>

@@ -44,7 +44,7 @@ export default function Chat({ onAgentChange, onNote }: Props) {
     {
       id: nextId(),
       role: "agent",
-      text: "안녕하세요! 숙명 메이커스페이스 AI 에이전트입니다.\n\n예약, 출력 파일 준비, 슬라이싱 설정, 가이드 문의 등 무엇이든 물어보세요.",
+      text: "안녕하세요! 숙명창작소 AI 에이전트입니다.\n\n예약, 출력 파일 준비, 슬라이싱 설정, 가이드 문의 등 무엇이든 물어보세요.",
       ts: new Date(),
     },
   ]);
