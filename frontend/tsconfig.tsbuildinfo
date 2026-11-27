@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/profile.ts","./src/components/copilot.tsx","./src/components/markdown.tsx","./src/components/ui.tsx","./src/pages/ideapage.tsx","./src/pages/learnpage.tsx","./src/pages/printpreppage.tsx","./src/pages/reservepage.tsx","./vite.config.ts"],"version":"5.9.3"}

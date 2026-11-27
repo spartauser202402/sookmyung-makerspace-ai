@@ -122,6 +122,34 @@ cd makerspace
 .\scripts\import-all.ps1
 ```
 
+### 5. 웹 프론트엔드 (로컬)
+
+`api/`(FastAPI)가 `tools/*.py` 함수를 그대로 REST로 노출하고, `frontend/`(Vite + React)가 이를 사용합니다.
+WxO ADK가 없으면 `tests/mock_wxo.py` stub으로 자동 대체됩니다.
+
+```powershell
+# 터미널 1 — API (프로젝트 루트에서)
+pip install -r api\requirements.txt
+python db\seed.py
+uvicorn api.server:app --reload --port 8000
+
+# 터미널 2 — 프론트
+cd frontend
+npm install
+npm run dev        # http://localhost:5173
+```
+
+| 탭 | 기능 | 사용 Tool |
+|---|---|---|
+| 예약 | 7일 슬롯 현황, 시간표 공강 표시, 예약/대기 등록, 내 예약 조회·취소, 자동 배정 실행 | `check_available_slots`, `make_reservation`, `cancel_reservation`, `add_to_waitlist`, `check_and_assign_waitlist`, `parse_timetable_and_find_free_slots` |
+| 출력 준비 | .gcode 검사, 파일명 생성, PLA 슬라이싱 추천, 출력 요청 메일 초안 | `validate_gcode_file`, `check_filename_format`, `build_gcode_filename`, `recommend_slicer_settings`, `draft_print_request_email` |
+| 아이디어 → 모델 | 요구사항 정리, CAD 도구 추천, 모델 검색(mock) | `refine_idea_to_requirements`, `recommend_cad_tool`, `search_open_models` |
+| 가이드 · 문제해결 | KB 문서 뷰어 + 키워드 검색 | `knowledge_base/*.md` |
+
+**AI 채팅(선택)**: `frontend/.env.example`을 `frontend/.env`로 복사하고 `VITE_WXO_*` 값을 넣으면
+우측 하단에 `makerspace_main_agent` 웹챗이 임베드됩니다
+(값은 `orchestrate channels webchat embed --agent-name=makerspace_main_agent` 출력에서 확인).
+
 ---
 
 ## 데모 시나리오 5개
