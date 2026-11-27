@@ -1,0 +1,10 @@
+spec_version: v1
+kind: knowledge_base
+name: makerspace_kb
+description: 숙명 메이커스페이스 AI 코파일럿 — 이용수칙, 3DWOX1 가이드, PLA 파라미터, 트러블슈팅 사례집
+documents:
+  - 이용수칙.txt
+  - 3DWOX1_사용가이드.txt
+  - PLA_파라미터.txt
+  - 트러블슈팅_사례집.txt
+  - 위치_및_운영안내.txt
