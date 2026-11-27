@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
 import Chat from "./components/Chat";
-import GcodePanel from "./components/GcodePanel";
 import AgentSidebar from "./components/AgentSidebar";
 import ActivityNote from "./components/ActivityNote";
 import type { AgentId } from "./components/AgentSidebar";
@@ -58,10 +57,7 @@ export default function App() {
       <main className="workspace">
         <AgentSidebar activeAgent={activeAgent} />
         <Chat onAgentChange={setActiveAgent} onNote={handleNote} />
-        <div className="right-panel">
-          <GcodePanel />
-          <ActivityNote notes={notes} />
-        </div>
+        <ActivityNote notes={notes} />
       </main>
 
       <footer className="foot muted small">

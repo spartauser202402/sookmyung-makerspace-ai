@@ -87,22 +87,6 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
   height: calc(100vh - 54px);
 }
 
-/* 우측 패널: gcode + 노트 세로 스택 */
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  border-left: 1px solid var(--border);
-}
-.right-panel > * {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-.right-panel > * + * {
-  border-top: 1px solid var(--border);
-}
 
 /* ── Chat panel ── */
 .chat-panel {
@@ -322,12 +306,15 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
   cursor: default;
 }
 .agent-item-active { background: var(--primary-soft); }
+.agent-item-active:hover { background: color-mix(in srgb, var(--primary) 18%, transparent); }
 
 .agent-status-icon {
   font-size: 1rem; line-height: 1; flex-shrink: 0; width: 20px; text-align: center;
   color: var(--muted);
+  transition: transform 0.15s ease;
 }
 .agent-item-active .agent-status-icon { color: var(--primary); }
+.agent-item-active:hover .agent-status-icon { transform: scale(1.25); }
 
 .agent-label {
   font-size: 0.84rem; font-weight: 500; color: var(--muted);
@@ -345,7 +332,9 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
   display: flex; flex-direction: column;
   padding: 16px 14px; gap: 10px;
   background: var(--bg);
-  min-height: 120px;
+  border-left: 1px solid var(--border);
+  height: 100%;
+  overflow-y: auto;
 }
 .note-panel-title {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
@@ -403,7 +392,6 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
   .agent-list { flex-direction: row; flex-wrap: wrap; gap: 4px; }
   .agent-item { padding: 5px 10px; border-radius: 999px; }
   .chat-panel { height: 65vh; border-right: none; border-bottom: 1px solid var(--border); }
-  .right-panel { border-left: none; }
-  .gcode-panel { height: auto; }
+  .note-panel { height: auto; border-left: none; border-top: 1px solid var(--border); }
   .topbar { padding: 10px 16px; }
 }
