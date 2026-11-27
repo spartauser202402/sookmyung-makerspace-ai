@@ -8,6 +8,19 @@ from __future__ import annotations
 from pydantic import BaseModel
 from ibm_watsonx_orchestrate.agent_builder.tools import tool, ToolPermission
 
+# 3D 프린팅/모델링과 관련된 키워드가 하나 이상 포함돼야 처리
+_3D_KEYWORDS = [
+    "만들", "출력", "프린트", "모델", "stl", "gcode", "디자인", "형태", "크기",
+    "모양", "조립", "부품", "케이스", "거치대", "스탠드", "홀더", "화분", "피규어",
+    "소품", "장식", "조형", "cad", "tinkercad", "fusion", "blender", "freecad",
+    "필라멘트", "pla", "3d", "print", "model", "design",
+]
+
+
+def _is_3d_related(text: str) -> bool:
+    lower = text.lower()
+    return any(kw in lower for kw in _3D_KEYWORDS)
+
 
 class ModelRequirements(BaseModel):
     idea_summary: str
@@ -34,12 +47,28 @@ def refine_idea_to_requirements(
     Returns:
         ModelRequirements: 정리된 요구사항과 다음 단계 추천.
     """
+    # 3D 프린팅과 무관한 입력 차단
+    if not _is_3d_related(idea_description):
+        return ModelRequirements(
+            idea_summary=idea_description[:100],
+            estimated_size="N/A",
+            shape_description="N/A",
+            functional_requirement="N/A",
+            pla_feasibility="N/A",
+            recommended_next_step="N/A",
+            message=(
+                "이 도구는 3D 프린팅 모델 아이디어 구체화 전용입니다. "
+                "만들고 싶은 물체나 3D 모델에 대한 아이디어를 설명해 주세요. "
+                "예: '책상에 놓을 연필꽂이 만들고 싶어요'"
+            ),
+        )
+
     # PLA 적합성 판단
     pla_issues = []
     if "고온" in idea_description or "열" in idea_description:
         pla_issues.append("PLA는 60°C 이상 환경에서 변형될 수 있음")
     if "유연" in idea_description or "탄성" in idea_description:
-        pla_issues.append("PLA는 단단한 소재 — 유연성이 필요하면 TPU 고려 (현재 메이커스페이스 미제공)")
+        pla_issues.append("PLA는 단단한 소재 — 유연성이 필요하면 TPU 고려 (현재 숙명창작소 미제공)")
     if "투명" in idea_description:
         pla_issues.append("PLA는 불투명 — 투명 소재가 필요하면 resin 프린터 필요 (현재 미운영)")
 

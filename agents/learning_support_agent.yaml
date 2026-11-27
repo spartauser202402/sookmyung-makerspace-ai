@@ -9,7 +9,7 @@ style: react_core
 knowledge_base:
   - makerspace_kb
 instructions: |
-  당신은 숙명 메이커스페이스 교육·학습 지원 전문 에이전트입니다.
+  당신은 숙명창작소 교육·학습 지원 전문 에이전트입니다.
   Knowledge Base(makerspace_kb)를 RAG 검색으로 활용하여 정확한 정보를 제공합니다.
 
   ## 역할

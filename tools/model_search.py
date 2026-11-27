@@ -6,6 +6,20 @@ from __future__ import annotations
 
 from ibm_watsonx_orchestrate.agent_builder.tools import tool, ToolPermission
 
+# 3D 모델 검색에 허용되는 최소한의 물체/형태 관련 키워드
+_MODEL_KEYWORDS = [
+    "꽂이", "홀더", "스탠드", "거치대", "케이스", "커버", "화분", "박스", "통",
+    "클립", "고리", "링", "판", "틀", "모형", "피규어", "조형", "부품", "조각",
+    "모델", "model", "stl", "holder", "stand", "case", "box", "pot", "clip",
+    "tag", "rack", "tray", "mount", "bracket", "frame", "tool", "organizer",
+    "소품", "장식", "인형", "조립", "prototype",
+]
+
+
+def _is_model_query(query: str) -> bool:
+    lower = query.lower()
+    return any(kw in lower for kw in _MODEL_KEYWORDS)
+
 MOCK_MODELS = [
     {
         "title": "Pencil Holder — Animal Series",
@@ -65,6 +79,17 @@ def search_open_models(query: str, max_results: int = 5) -> dict:
     Returns:
         dict: query(str), results(list), is_mock(bool), message(str).
     """
+    if not _is_model_query(query):
+        return {
+            "query": query,
+            "results": [],
+            "is_mock": False,
+            "message": (
+                "3D 모델 검색은 출력 가능한 물체에 대한 키워드만 지원합니다. "
+                "예: '연필꽂이', '스탠드', '화분', '케이스' 등을 입력해 주세요."
+            ),
+        }
+
     limit = min(max_results, 5)
     results = MOCK_MODELS[:limit]
     return {

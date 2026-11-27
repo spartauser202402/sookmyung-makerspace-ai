@@ -79,7 +79,7 @@ def recommend_cad_tool(
     tools = CAD_TOOLS.get(level_key, CAD_TOOLS["beginner"])
     note = (
         "모든 도구는 STL 형식으로 내보내기 후, "
-        "3DWOX1 슬라이서에서 .gcode로 변환하여 메이커스페이스에 제출하세요."
+        "3DWOX1 슬라이서에서 .gcode로 변환하여 숙명창작소에 제출하세요."
     )
     return {
         "level": level_key,
